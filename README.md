@@ -4,7 +4,7 @@
 
 ## Overview
 
-The basic solution composed fromHow would you have done things to have the best HA/automated architecture ? web server tier and db tier deployed within the same subnet and VPC. The webserver tier based on docker container running EC2 instances and conducted by ECS AWS cluster service. The container image is taken from Wordpress official docker.io repository. The db tier is made from EC2 instance running mysql DB -> created AMI image with help of Packer and Ansible. 
+The basic solution composed from web server tier and db tier deployed within the same subnet and VPC. The webserver tier based on docker container running EC2 instances and conducted by ECS AWS cluster service. The container image is taken from Wordpress official docker.io repository. The db tier is made from EC2 instance running mysql DB -> created AMI image with help of Packer and Ansible. 
 
 Here I was not building my own docker image as was not certain of demand coming from your side. 
 
