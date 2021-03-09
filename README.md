@@ -1,7 +1,5 @@
 # Terraform / Ansible / Packer / Docker test
 
-[TOC]
-
 ![](pic/aws_infra.png)
 
 ## Overview
@@ -24,7 +22,8 @@ Here I was not building my own docker image as was not certain of demand coming 
    ```
    cd ./terraform && terraform init
    terraform <plan|apply>
-```
+   ```
+
    
    It will deploy the infrastructure toghether with the ECS cluster/task/container definiton.
 
@@ -59,4 +58,3 @@ Share with us any ideas you have in mind to improve this kind of infrastructure.
 Generally the project is still far from production, the security is rather week - need to put the db credentials in the secrets, same for the IaC side, need to involve the Ansible vault to not leave the track of credentials at SCM behind. I also didn't check all the docker options having in mind the firing up the thing ASAP. 
 
 But first of all it would be nice to test the solution against the real load which is greater than one request per minute to see how the system scales. The monitoring shall be added, either the AWS build in solution or Prometheus for container side etc. The external access should be hardened against the different types of common Wordpress attacks. including DDoS - maybe cloudFrond? The DB updated - different solutions like AWS Aurora could be something to consider. Depending on the content some cashing mechanism could be implemented (CDN). Backup mechanism shall be put in place if not already hosted by cloud provider. etc etc.
-
