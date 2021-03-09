@@ -1,0 +1,41 @@
+---
+- hosts: default
+  become: true
+  tasks:
+  - name: Install mysql server
+    apt:
+      name: mysql-server
+      state: present
+    become: true
+
+  - name: Allow external mysql traffic
+    ansible.builtin.lineinfile:
+      path: /etc/mysql/mysql.conf.d/mysqld.cnf
+      regexp: '^bind-address.*'
+      line: bind-address = 0.0.0.0
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Ensure mysql is running
+    service:
+      name: mysql
+      state: started
+    become: true
+
+  - name: Create wordpress user
+    command: mysql -e "CREATE USER 'wp_user'@'%' IDENTIFIED BY 'wp_password';"
+    become: true
+#TODO: replace plain text user/password with ansible vault usage
+
+  - name: Create wordpress databse
+    command: mysql -e "CREATE DATABASE wordpress"
+    become: true
+
+  - name: Grand privileges to wordpress databse
+    command: mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'%';"
+    become: true
+
+  - name: Flush mysql privileges
+    command: mysql -e "flush privileges;"
+    become: true
